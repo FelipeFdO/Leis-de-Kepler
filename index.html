@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leis de Kepler • Simulador Interativo de Astrofísica</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪐</text></svg>">
+</head>
+<body>
+
+  <!-- HEADER HERO -->
+  <header class="header-hero">
+    <div class="header-container">
+      <div class="logo-group">
+        <span class="logo-icon">🪐</span>
+        <div class="logo-title">
+          <h1>As Leis de Kepler</h1>
+          <p>Painel Didático Interativo • Física para o Ensino Médio</p>
+        </div>
+      </div>
+
+      <!-- NAVEGAÇÃO ENTRE ABAS -->
+      <nav class="tabs-nav" role="tablist">
+        <button class="tab-btn active" data-tab="tab-intro" role="tab">
+          <span>🌌</span> Apresentação
+        </button>
+        <button class="tab-btn" data-tab="tab-law1" role="tab">
+          <span>🔴</span> 1ª Lei: Órbitas
+        </button>
+        <button class="tab-btn" data-tab="tab-law2" role="tab">
+          <span>🟡</span> 2ª Lei: Áreas
+        </button>
+        <button class="tab-btn" data-tab="tab-law3" role="tab">
+          <span>🔵</span> 3ª Lei: Períodos
+        </button>
+        <button class="tab-btn" data-tab="tab-quiz" role="tab">
+          <span>🏆</span> Quiz Desafio
+        </button>
+        <button class="tab-btn" data-tab="tab-guide" role="tab">
+          <span>📖</span> Guia do Professor
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="main-content">
+
+    <!-- ======================================================== -->
+    <!-- ABA 0: APRESENTAÇÃO & CONTEXTO HISTÓRICO -->
+    <!-- ======================================================== -->
+    <section id="tab-intro" class="tab-pane active" role="tabpanel">
+      <div class="canvas-card" style="padding: 2rem;">
+        <h2 style="font-size: 1.75rem; margin-bottom: 0.75rem; color: #ffffff;">
+          A Revolução de Johannes Kepler na Astronomia
+        </h2>
+        <p style="color: #cbd5e1; font-size: 1.05rem; max-width: 900px; margin-bottom: 1.5rem;">
+          Durante mais de dois milênios, a humanidade acreditou que os corpos celestes moviam-se em círculos perfeitos e com velocidades constantes. 
+          No início do século XVII, munido dos precisos dados observacionais de <strong>Tycho Brahe</strong>, o astrônomo e matemático 
+          <strong>Johannes Kepler</strong> (1571–1630) quebrou esse dogma e formulou as três leis empíricas do movimento planetário que abriram caminho para a Teoria da Gravitação Universal de Isaac Newton.
+        </p>
+
+        <div class="intro-grid">
+          <div class="intro-card">
+            <span class="intro-icon">🔴</span>
+            <h3>1ª Lei: Lei das Órbitas</h3>
+            <p>
+              <em>"Os planetas descrevem órbitas elípticas ao redor do Sol, que ocupa um dos focos da elipse."</em>
+            </p>
+            <p style="font-size: 0.85rem; color: var(--accent-cyan); margin-top: auto;">
+              ➜ Desmistifica a ideia de órbita circular e introduz os conceitos de excentricidade (<i>e</i>), afélio e periélio.
+            </p>
+          </div>
+
+          <div class="intro-card">
+            <span class="intro-icon">🟡</span>
+            <h3>2ª Lei: Lei das Áreas</h3>
+            <p>
+              <em>"O segmento de reta que une o Sol a um planeta varre áreas iguais em intervalos de tempo iguais: <span class="math-badge">Δ<i>A</i> / Δ<i>t</i> = constante</span>."</em>
+            </p>
+            <p style="font-size: 0.85rem; color: var(--accent-cyan); margin-top: auto;">
+              ➜ Demonstra que a velocidade não é constante: o planeta é mais rápido no periélio e mais lento no afélio.
+            </p>
+          </div>
+
+          <div class="intro-card">
+            <span class="intro-icon">🔵</span>
+            <h3>3ª Lei: Lei dos Períodos</h3>
+            <p>
+              <em>"O quadrado do período de revolução de um planeta é diretamente proporcional ao cubo do semi-eixo maior da sua órbita: <span class="math-badge"><i>T</i>² = <i>k</i> · <i>a</i>³</span>."</em>
+            </p>
+            <p style="font-size: 0.85rem; color: var(--accent-cyan); margin-top: auto;">
+              ➜ Conecta matematicamente a distância do planeta com o tempo que ele leva para dar uma volta completa.
+            </p>
+          </div>
+        </div>
+
+        <div class="didactic-box" style="margin-top: 2rem;">
+          <h4>💡 Como explorar este painel em sala de aula</h4>
+          <p>
+            Navegue pelas abas acima para acessar simuladores individuais para cada lei, realizar experimentos virtuais alterando parâmetros em tempo real, testar o conhecimento dos alunos com o <strong>Quiz</strong> e consultar o <strong>Guia do Professor</strong> com roteiro pedagógico completo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ABA 1: 1ª LEI DE KEPLER - LEI DAS ÓRBITAS -->
+    <!-- ======================================================== -->
+    <section id="tab-law1" class="tab-pane" role="tabpanel">
+      <div class="sim-grid">
+        <!-- Canvas Interativo -->
+        <div class="canvas-card">
+          <div class="canvas-header">
+            <div class="canvas-title">
+              <span>🔴</span>
+              <span>1ª Lei de Kepler • A Geometria da Elipse</span>
+            </div>
+            <div class="canvas-actions">
+              <button id="law1-reset-btn" class="btn btn-secondary" title="Reiniciar posição do planeta">↺ Reiniciar</button>
+            </div>
+          </div>
+          <div class="canvas-wrapper">
+            <canvas id="canvas-law1"></canvas>
+          </div>
+          <div class="didactic-box" style="margin: 1rem 1.5rem 1.5rem;">
+            <h4>🔍 O que observar nesta simulação:</h4>
+            <p style="line-height: 1.8;">
+              1. Note que o <strong>Sol está em um dos focos</strong> e não no centro geométrico da elipse.<br>
+              2. As linhas amarela (<span class="math-formula"><i>r</i><sub>1</sub></span>) e azul (<span class="math-formula"><i>r</i><sub>2</sub></span>) conectam os dois focos ao planeta. Conforme ele se move, as distâncias mudam, mas a soma <span class="math-badge"><i>r</i><sub>1</sub> + <i>r</i><sub>2</sub> = 2<i>a</i></span> <strong>permanece rigorosamente constante</strong>, definindo geometricamente a elipse!<br>
+              3. Compare a órbita da <strong>Terra (<span class="math-formula"><i>e</i> ≈ 0,017</span>)</strong>, quase perfeitamente circular, com a de <strong>Marte (<span class="math-formula"><i>e</i> ≈ 0,093</span>)</strong> e a do <strong>Cometa Halley (<span class="math-formula"><i>e</i> ≈ 0,967</span>)</strong> usando os botões de predefinição.
+            </p>
+          </div>
+        </div>
+
+        <!-- Controles da 1ª Lei -->
+        <aside class="controls-card">
+          <h3 class="section-title">Controles da Simulação</h3>
+          
+          <div class="playback-bar">
+            <button id="law1-play-btn" class="btn btn-primary">
+              <span>⏸</span> Pausar
+            </button>
+            <div class="control-group">
+              <label class="control-label">
+                <span>Velocidade:</span>
+                <span id="law1-speed-val" class="control-value">1.0x</span>
+              </label>
+              <input type="range" id="law1-speed" min="0.1" max="3" step="0.1" value="1.0">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">
+              <span>Excentricidade (<i>e</i>):</span>
+              <span id="law1-ecc-val" class="control-value">0.550</span>
+            </label>
+            <input type="range" id="law1-eccentricity" min="0.0" max="0.85" step="0.01" value="0.55">
+          </div>
+
+          <div>
+            <label class="control-label" style="margin-bottom: 0.5rem;">Predefinições Reais:</label>
+            <div class="presets-grid">
+              <button class="preset-btn law1-preset-btn" data-ecc="0.000">⚪ Círculo (e = 0)</button>
+              <button class="preset-btn law1-preset-btn" data-ecc="0.017">🌍 Terra (e = 0.017)</button>
+              <button class="preset-btn law1-preset-btn" data-ecc="0.093">🔴 Marte (e = 0.093)</button>
+              <button class="preset-btn law1-preset-btn" data-ecc="0.206">🪨 Mercúrio (e = 0.206)</button>
+              <button class="preset-btn law1-preset-btn" data-ecc="0.650">☄️ Cometa Médio (e = 0.65)</button>
+              <button class="preset-btn law1-preset-btn" data-ecc="0.850">⚡ Alta Exc. (e = 0.85)</button>
+            </div>
+          </div>
+
+          <h3 class="section-title" style="margin-top: 0.5rem;">Elementos Gráficos</h3>
+          <div class="toggles-list">
+            <label class="toggle-item">
+              <input type="checkbox" id="law1-toggle-foci" checked>
+              <span>Mostrar Focos (Sol e Foco Vazio)</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="law1-toggle-lines" checked>
+              <span>Mostrar Raio-Vetores (<i>r</i><sub>1</sub> + <i>r</i><sub>2</sub> = 2<i>a</i>)</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="law1-toggle-axes" checked>
+              <span>Mostrar Eixos e Centro (<i>a</i> e <i>b</i>)</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="law1-toggle-periaphelion" checked>
+              <span>Destacar Periélio e Afélio</span>
+            </label>
+          </div>
+
+          <h3 class="section-title" style="margin-top: 0.5rem;">Geometria em Tempo Real</h3>
+          <div class="metrics-card">
+            <div class="metric-row">
+              <span class="metric-label">Excentricidade (<i>e</i>):</span>
+              <span id="law1-info-e" class="metric-val metric-highlight">0.550</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-label">Semi-eixo maior (<i>a</i>):</span>
+              <span id="law1-info-a" class="metric-val">2.10 UA</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-label">Semi-eixo menor (<i>b</i>):</span>
+              <span id="law1-info-b" class="metric-val">1.75 UA</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-label">Distância focal (<i>c</i> = <i>a</i> · <i>e</i>):</span>
+              <span id="law1-info-c" class="metric-val">1.16 UA</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-label">Periélio [<i>r</i><sub>p</sub> = <i>a</i>(1 − <i>e</i>)]:</span>
+              <span id="law1-info-rp" class="metric-val" style="color: #ef4444;">0.95 UA</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-label">Afélio [<i>r</i><sub>a</sub> = <i>a</i>(1 + <i>e</i>)]:</span>
+              <span id="law1-info-ra" class="metric-val" style="color: #38bdf8;">3.26 UA</span>
+            </div>
+            <div class="metric-row" style="flex-direction: column; align-items: flex-start; gap: 0.2rem;">
+              <span class="metric-label">Soma das distâncias (<i>r</i><sub>1</sub> + <i>r</i><sub>2</sub> = 2<i>a</i>):</span>
+              <span id="law1-info-sum" class="metric-val" style="color: #fde047; font-size: 0.775rem;">Calculando...</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ABA 2: 2ª LEI DE KEPLER - LEI DAS ÁREAS -->
+    <!-- ======================================================== -->
+    <section id="tab-law2" class="tab-pane" role="tabpanel">
+      <div class="sim-grid">
+        <!-- Canvas Interativo -->
+        <div class="canvas-card">
+          <div class="canvas-header">
+            <div class="canvas-title">
+              <span>🟡</span>
+              <span>2ª Lei de Kepler • Varredura de Áreas & Velocidade</span>
+            </div>
+            <div class="canvas-actions">
+              <button id="law2-reset-btn" class="btn btn-secondary">↺ Reiniciar</button>
+            </div>
+          </div>
+          <div class="canvas-wrapper">
+            <canvas id="canvas-law2"></canvas>
+          </div>
+          <div class="didactic-box" style="margin: 1rem 1.5rem 1.5rem;">
+            <h4>🔍 O que observar nesta simulação:</h4>
+            <p style="line-height: 1.8;">
+              1. <strong>Áreas Iguais:</strong> Observe os dois setores coloridos (azul perto do periélio e amarelo perto do afélio). Embora tenham formatos totalmente diferentes (um curto e largo, outro longo e estreito), <strong>suas áreas são rigorosamente idênticas</strong> porque correspondem ao mesmo intervalo de tempo (Δ<i>t</i>).<br>
+              2. <strong>Velocidade Orbital Variável:</strong> Observe o vetor verde (<i>v⃗</i>). No periélio (mais próximo do Sol), o planeta desloca-se muito mais depressa para varrer a mesma área. No afélio, o movimento fica mais lento.<br>
+              3. <strong>Força Gravitacional:</strong> O vetor vermelho (<i>F⃗</i><sub>g</sub>) aponta sempre na direção do Sol (força central atrativa) e atinge sua intensidade máxima no periélio.
+            </p>
+          </div>
+        </div>
+
+        <!-- Controles da 2ª Lei -->
+        <aside class="controls-card">
+          <h3 class="section-title">Controles da Simulação</h3>
+
+          <div class="playback-bar">
+            <button id="law2-play-btn" class="btn btn-primary">
+              <span>⏸</span> Pausar
+            </button>
+            <div class="control-group">
+              <label class="control-label">
+                <span>Velocidade:</span>
+                <span id="law2-speed-val" class="control-value">1.0x</span>
+              </label>
+              <input type="range" id="law2-speed" min="0.2" max="3" step="0.1" value="1.0">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">
+              <span>Excentricidade (<i>e</i>):</span>
+              <span id="law2-ecc-val" class="control-value">0.580</span>
+            </label>
+            <input type="range" id="law2-eccentricity" min="0.0" max="0.75" step="0.01" value="0.58">
+          </div>
+
+          <h3 class="section-title" style="margin-top: 0.5rem;">Exibição de Vetores e Setores</h3>
+          <div class="toggles-list">
+            <label class="toggle-item">
+              <input type="checkbox" id="law2-toggle-sectors" checked>
+              <span>Mostrar Setores de Áreas Iguais (Δ<i>A</i>)</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="law2-toggle-vel" checked>
+              <span>Mostrar Vetor Velocidade (<i>v⃗</i>) [Verde]</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="law2-toggle-force" checked>
+              <span>Mostrar Vetor Força Gravitacional (<i>F⃗</i><sub>g</sub>) [Vermelho]</span>
+            </label>
+            <label class="toggle-item">
+              <input type="checkbox" id="law2-toggle-radius" checked>
+              <span>Mostrar Raio Vetor Sol-Planeta (<i>r⃗</i>)</span>
+            </label>
+          </div>
+
+          <h3 class="section-title" style="margin-top: 0.5rem;">Velocímetro & Prova da Lei</h3>
+          <div class="metrics-card">
+            <div class="metric-row">
+              <span class="metric-label">Velocidade Instantânea (<i>v</i>):</span>
+              <span id="law2-info-current-v" class="metric-val" style="color: #10b981;">Calculando...</span>
+            </div>
+            <div class="speed-gauge">
+              <div id="law2-speed-bar" class="speed-gauge-fill"></div>
+            </div>
+            <div class="metric-row" style="margin-top: 0.5rem;">
+              <span class="metric-label">Distância ao Sol (<i>r</i>):</span>
+              <span id="law2-info-current-r" class="metric-val">Calculando...</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-label">Área 1 (Periélio):</span>
+              <span id="law2-info-area1" class="metric-val" style="color: #38bdf8;">Calculando...</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-label">Área 2 (Afélio):</span>
+              <span id="law2-info-area2" class="metric-val" style="color: #eab308;">Calculando...</span>
+            </div>
+            <div class="metric-row" style="border-bottom: none; padding-top: 0.4rem;">
+              <span class="metric-label">Verificação:</span>
+              <span id="law2-info-equality" class="metric-val font-bold text-accent">Δ<i>A</i>₁ = Δ<i>A</i>₂ (100% Idênticas!)</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ABA 3: 3ª LEI DE KEPLER - LEI DOS PERÍODOS (HARMÔNICA) -->
+    <!-- ======================================================== -->
+    <section id="tab-law3" class="tab-pane" role="tabpanel">
+      <!-- Grade Dupla: Sistema Solar + Gráfico -->
+      <div class="dual-canvas-grid">
+        <!-- Canvas 1: Sistema Solar com Planetas -->
+        <div class="canvas-card">
+          <div class="canvas-header">
+            <div class="canvas-title">
+              <span>🔵</span>
+              <span>Corrida dos Planetas no Sistema Solar</span>
+            </div>
+            <div class="canvas-actions">
+              <button id="law3-play-btn" class="btn btn-secondary">⏸ Pausar</button>
+            </div>
+          </div>
+          <div class="canvas-wrapper">
+            <canvas id="canvas-law3-orbits"></canvas>
+          </div>
+        </div>
+
+        <!-- Canvas 2: Gráfico Interativo T² vs a³ -->
+        <div class="canvas-card">
+          <div class="canvas-header">
+            <div class="canvas-title">
+              <span>📈</span>
+              <span>Comprovação Gráfica da 3ª Lei: <i>T</i>² vs <i>a</i>³</span>
+            </div>
+            <div class="canvas-actions">
+              <button id="law3-graph-mode-btn" class="btn btn-primary" style="font-size: 0.775rem;">
+                Alternar para <i>T</i> vs <i>a</i> (Curva)
+              </button>
+            </div>
+          </div>
+          <div class="canvas-wrapper">
+            <canvas id="canvas-law3-graph"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controles e Planeta Hipotético Customizável -->
+      <div class="sim-grid" style="margin-top: 1.5rem;">
+        <div class="controls-card" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div>
+            <h3 class="section-title">🪐 Crie um Planeta Hipotético!</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+              Escolha uma distância orbital média (<i>a</i>) para seu planeta fictício e veja o período (<i>T</i>) ser determinado instantaneamente pela 3ª Lei:
+            </p>
+            <div class="control-group">
+              <label class="control-label">
+                <span>Distância orbital (<i>a</i>):</span>
+                <span id="law3-custom-a-val" class="control-value" style="color: #ec4899;">2.80 UA</span>
+              </label>
+              <input type="range" id="law3-custom-a" min="0.3" max="8.0" step="0.1" value="2.8">
+            </div>
+            <div class="control-group" style="margin-top: 1rem;">
+              <label class="control-label">
+                <span>Velocidade Geral da Simulação:</span>
+                <span id="law3-speed-val" class="control-value">1.0x</span>
+              </label>
+              <input type="range" id="law3-speed" min="0.2" max="3" step="0.1" value="1.0">
+            </div>
+          </div>
+
+          <div>
+            <h3 class="section-title">Cálculos para o Planeta Hipotético</h3>
+            <div class="metrics-card">
+              <div class="metric-row">
+                <span class="metric-label">Período Orbital (<i>T</i> = √<i>a</i>³):</span>
+                <span id="law3-info-custom-t" class="metric-val" style="color: #ec4899;">4.685 anos</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Cubo do Semi-eixo (<i>a</i>³):</span>
+                <span id="law3-info-custom-a3" class="metric-val">21.952 UA³</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Quadrado do Período (<i>T</i>²):</span>
+                <span id="law3-info-custom-t2" class="metric-val">21.952 anos²</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Razão <i>T</i>² / <i>a</i>³:</span>
+                <span id="law3-info-custom-ratio" class="metric-val text-accent font-bold">1.000 (Constante de Kepler!)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabela Interativa de Dados do Sistema Solar -->
+      <div class="table-card">
+        <h3 class="section-title" style="margin-bottom: 0.75rem;">Tabela Astronômica do Sistema Solar • Comprovação da Constante <i>k</i> = <i>T</i>² / <i>a</i>³</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Planeta</th>
+              <th>Semi-eixo maior <i>a</i> (UA)</th>
+              <th>Período <i>T</i> (anos)</th>
+              <th><i>a</i>³ (UA³)</th>
+              <th><i>T</i>² (anos²)</th>
+              <th>Razão <i>T</i>² / <i>a</i>³</th>
+            </tr>
+          </thead>
+          <tbody id="law3-planets-table-body">
+            <!-- Preenchido via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ABA 4: QUIZ / DESAFIO INTERATIVO -->
+    <!-- ======================================================== -->
+    <section id="tab-quiz" class="tab-pane" role="tabpanel">
+      <div class="quiz-container">
+        <div id="quiz-mount">
+          <!-- Quiz renderizado dinamicamente por quiz.js / simulators.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- ABA 5: GUIA DO PROFESSOR (ROTEIRO DE AULA) -->
+    <!-- ======================================================== -->
+    <section id="tab-guide" class="tab-pane" role="tabpanel">
+      <div class="canvas-card" style="padding: 2.25rem;">
+        <h2 style="font-size: 1.6rem; color: #ffffff; margin-bottom: 1rem;">
+          📖 Guia Pedagógico & Roteiro de Aula • Leis de Kepler
+        </h2>
+        <p style="color: #cbd5e1; margin-bottom: 1.5rem;">
+          Este roteiro foi elaborado especificamente para professores de Física do Ensino Médio, contendo sugestões de condução, perguntas disparadoras e atividades práticas para os alunos usando os simuladores deste painel.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 1.75rem;">
+          <!-- Bloco 1 -->
+          <div class="intro-card">
+            <h3 style="color: var(--accent-cyan);">⏱️ Sugestão de Cronograma (Aula de 50 a 100 minutos)</h3>
+            <ul style="padding-left: 1.25rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 0.6rem; line-height: 1.7;">
+              <li><strong>00 - 15 min: Contextualização Histórica (Aba Apresentação)</strong> — Discutir a transição do modelo geocêntrico/círculos perfeitos para o modelo heliocêntrico e a contribuição das observações de Tycho Brahe.</li>
+              <li><strong>15 - 35 min: Exploração da 1ª Lei (Aba 1ª Lei)</strong> — Alunos testam diferentes excentricidades. Mostrar que a órbita da Terra parece um círculo, enquanto cometas possuem alta excentricidade. Explorar a constância de <span class="math-badge"><i>r</i><sub>1</sub> + <i>r</i><sub>2</sub> = 2<i>a</i></span>.</li>
+              <li><strong>35 - 55 min: Exploração da 2ª Lei (Aba 2ª Lei)</strong> — Analisar a variação da velocidade no periélio e afélio. Discutir por que o raio vetor varre a mesma área no mesmo tempo (<span class="math-badge">Δ<i>A</i> / Δ<i>t</i> = cte</span>). Ativar a exibição dos vetores velocidade e força.</li>
+              <li><strong>55 - 75 min: Exploração da 3ª Lei (Aba 3ª Lei)</strong> — Observar a corrida dos planetas. Pedir para os alunos criarem um planeta hipotético e calcularem seu período usando a fórmula <span class="math-badge"><i>T</i> = √<i>a</i>³</span>. Analisar o gráfico linear <i>T</i>² × <i>a</i>³.</li>
+              <li><strong>75 - 90 min: Fixação com o Quiz Desafio (Aba Quiz)</strong> — Realização individual ou em duplas do quiz com discussão coletiva das resoluções.</li>
+            </ul>
+          </div>
+
+          <!-- Bloco 2 -->
+          <div class="intro-card">
+            <h3 style="color: var(--accent-sun);">❓ Perguntas Disparadoras para Estimular os Alunos</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.85rem; color: #cbd5e1; line-height: 1.7;">
+              <p>
+                <strong>1. Sobre a 1ª Lei:</strong> "Se as órbitas são elípticas, por que as estações do ano não são causadas pela distância da Terra ao Sol?"<br>
+                <em>(Dica do professor: Aponte a excentricidade da Terra de apenas <span class="math-formula"><i>e</i> ≈ 0,017</span> na aba da 1ª Lei! A distância varia muito pouco; o fator determinante para as estações é a inclinação do eixo terrestre de aproximadamente 23,5°).</em>
+              </p>
+              <p>
+                <strong>2. Sobre a 2ª Lei:</strong> "Se um planeta levasse o mesmo tempo para percorrer o mesmo comprimento de arco no periélio e no afélio, a 2ª lei ainda seria válida?"<br>
+                <em>(Dica do professor: Não! O arco no periélio precisa ser significativamente maior para compensar a menor distância ao Sol e manter as áreas varridas idênticas).</em>
+              </p>
+              <p>
+                <strong>3. Sobre a 3ª Lei:</strong> "Se descobrirmos um asteroide a uma distância média de 9 UA do Sol, quantos anos terrestres ele levará para completar uma volta?"<br>
+                <em>(Cálculo passo a passo: <span class="math-badge"><i>T</i>² = <i>a</i>³ &nbsp;⇒&nbsp; <i>T</i>² = 9³ = 729 &nbsp;⇒&nbsp; <i>T</i> = √729 = 27 anos</span>).</em>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Simulador Pedagógico das Leis de Kepler • Criado para o Ensino Médio de Física • 100% Interativo e Aberto</p>
+  </footer>
+
+  <!-- SCRIPTS PRINCIPAIS (Compatíveis com execução direta via duplo-clique no arquivo) -->
+  <script src="physics.js"></script>
+  <script src="quiz.js"></script>
+  <script src="simulators.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
